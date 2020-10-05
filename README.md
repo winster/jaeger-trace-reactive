@@ -1,4 +1,4 @@
-## Demonstrate no logs in trace after webclient
+## Demonstrate `no logs in trace` when using webclient
 
 * Step1: Start Jaeger
 * Step2: Run application and observe the logs. It will show logs as below
