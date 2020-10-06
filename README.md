@@ -15,7 +15,7 @@
     * `before sending BMono`
     * `inside onCompleted `
     <p align="center">
-      <img src="jaeger1.JPG" width="350" title="jaeger1.JPG">
+      <img src="jaeger1.JPG" width="650" title="jaeger1.JPG">
     </p>
 
 ## Optional step.
@@ -28,7 +28,7 @@
 * Step)3: Restart application
 * StepO4: Navigate to a trace in Jaeger and inspect the logs. All logs are shown
     <p align="center">
-      <img src="jaeger2.JPG" width="350" title="jaeger2.JPG">
+      <img src="jaeger2.JPG" width="650" title="jaeger2.JPG">
     </p>
 
 
