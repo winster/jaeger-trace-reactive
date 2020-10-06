@@ -39,9 +39,24 @@ public class JaegerTraceReactiveApplication {
 	@Bean
 	public WebClient webClient() {
 		WebClient webClient = WebClient.builder()
-									   /*.exchangeFunction(clientRequest -> Mono.just(clientResponse))*/
+									   .exchangeFunction(clientRequest -> Mono.just(dummyResponseToAvoidPost()))
 									   .build();
 		return webClient;
+	}
+	
+	private ClientResponse dummyResponseToAvoidPost() {
+		String bJson = null;
+		try {
+			bJson = new ObjectMapper().writeValueAsString(new AppService.B("b"));
+			ClientResponse clientResponse =
+				ClientResponse.create(HttpStatus.OK)
+							  .header("Content-Type", "application/json")
+							  .body(bJson)
+							  .build();
+			return clientResponse;
+		} catch (JsonProcessingException e) {
+			return null;
+		}
 	}
 	
 	@PostMapping(value = "/b",

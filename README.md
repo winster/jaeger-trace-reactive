@@ -14,13 +14,22 @@
 * Step3: Navigate to a trace and inspect the logs. Following logs are missing
     * `before sending BMono`
     * `inside onCompleted `
-* Step4: Open SimpleJob.java and inspect the reactive flow
-* Step5: Uncomment lines 49
+    <p align="center">
+      <img src="jaeger1.JPG" width="350" title="jaeger1.JPG">
+    </p>
+
+## Optional step.
+
+* StepO1: Open JaegerTraceReactiveApplication.java and inspect the reactive flow
+* StepO2: Uncomment lines 42
 ```
-.exchangeFunction(clientRequest -> Mono.just(clientResponse))
+/*.exchangeFunction(clientRequest -> Mono.just(dummyResponseToAvoidPost()))*/
 ```
-* Step6: Restart application
-* Step7: Navigate to a trace in Jaeger and inspect the logs. All logs are shown
+* Step)3: Restart application
+* StepO4: Navigate to a trace in Jaeger and inspect the logs. All logs are shown
+    <p align="center">
+      <img src="jaeger2.JPG" width="350" title="jaeger2.JPG">
+    </p>
 
 
 ### Analysis

@@ -45,30 +45,18 @@ public class AppService {
     
     private Mono<B> getB(A a) {
         log.info("inside getB");
-        String bJson = null;
-        try {
-            bJson = new ObjectMapper().writeValueAsString(new B("b" + a.a));
-            ClientResponse clientResponse =
-                ClientResponse.create(HttpStatus.OK)
-                              .header("Content-Type", "application/json")
-                              .body(bJson)
-                              .build();
-            WebClient webClient = WebClient.builder()
-                                           /*.exchangeFunction(clientRequest -> Mono.just(clientResponse))*/
-                                           .build();
-            return webClient.post().uri("http://localhost:"+port+"/b").body(Mono.just(a), A.class).exchange()
-                            .flatMap(response -> {
-                                log.info("before sending BMono");
-                                Mono<B> bMono = clientResponse.bodyToMono(B.class);
-                                return bMono;
-                            }).onErrorResume(Throwable.class, e -> {
-                    log.info("Inside onErrorResume", e);
-                    return Mono.error(Exception::new);
-                });
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return Mono.error(Exception::new);
-        }
+        return webClient.post().uri("http://localhost:"+port+"/b")
+                        .body(Mono.just(a), A.class)
+                        .exchange()
+                        .flatMap(response -> {
+                            log.info("before sending BMono");
+                            Mono<B> bMono = response.bodyToMono(B.class);
+                            return bMono;
+                        })
+                        .onErrorResume(Throwable.class, e -> {
+                            log.info("Inside onErrorResume", e);
+                            return Mono.error(Exception::new);
+                        });
     }
     
     private void onCompleted(B b) {
